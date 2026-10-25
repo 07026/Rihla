@@ -1,79 +1,105 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اكتشف سحر المغرب | السياحة المغربية</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Cairo', sans-serif; }
-    </style>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Morocco Travel | اكتشف المغرب</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js" defer></script>
 </head>
-<body class="bg-slate-50 text-slate-800">
 
-    <!-- Header -->
-    <header class="bg-emerald-700 text-white shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-extrabold flex items-center gap-2">
-                <i class="fa-solid font-star text-amber-400"></i> اكتشف المغرب
-            </h1>
-            <nav class="hidden md:flex space-x-6 space-x-reverse font-semibold">
-                <a href="#about" class="hover:text-amber-300 transition">عن المغرب</a>
-                <a href="#cities" class="hover:text-amber-300 transition">المدن السياحية</a>
-                <a href="#culture" class="hover:text-amber-300 transition">الثقافة والتراث</a>
-            </nav>
-        </div>
-    </header>
+<body>
 
-    <!-- Hero Section -->
-    <section class="relative bg-cover bg-center h-[500px] flex items-center justify-center text-center text-white px-4" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?q=80&w=1600');">
-        <div class="max-w-3xl">
-            <h2 class="text-4xl md:text-6xl font-extrabold mb-4">مرحباً بكم في المملكة المغربية</h2>
-            <p class="text-lg md:text-2xl mb-8 font-light">أرض الأصالة، الطبيعة الخلابة، والتنوع الثقافي الفريد.</p>
-            <a href="#cities" class="bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-8 py-3 rounded-full shadow-lg transition">استكشف الوجهات</a>
-        </div>
-    </section>
+        <header class="header">
+                <h1>🇲🇦 Morocco Travel</h1>
+                <button id="languageBtn" type="button">Français</button>
+        </header>
 
-    <!-- Cities Section -->
-    <section id="cities" class="py-16 container mx-auto px-6">
-        <h2 class="text-3xl font-bold text-center text-emerald-800 mb-12">أبرز المدن السياحية</h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Card 1 -->
-            <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
-                <img src="https://images.unsplash.com/photo-1597212618440-806262de4f6b?q=80&w=600" alt="مراكش" class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2 text-emerald-700">مراكش - المدينة الحمراء</h3>
-                    <p class="text-slate-600 text-sm mb-4">تتميز بساحة جامع الفناء الشهيرة، الأسواق التقليدية، والحدائق الساحرة كحديقة ماجوريل.</p>
-                </div>
-            </div>
+        <nav>
+                <a href="#home" id="homeLink">الرئيسية</a>
+                <a href="#trips" id="tripsLink">الرحلات</a>
+                <a href="#booking" id="bookingLink">الحجز</a>
+        </nav>
 
-            <!-- Card 2 -->
-            <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
-                <img src="https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=600" alt="شفشاون" class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2 text-emerald-700">شفشاون - الجوهرة الزرقاء</h3>
-                    <p class="text-slate-600 text-sm mb-4">مدينة هادئة بين جبال الريف، تتزين بأزقتها ومبانيها المصبوغة بدرجات اللون الأزرق.</p>
-                </div>
-            </div>
+        <main>
+                <section class="hero" id="home">
+                        <h2 id="heroTitle">اكتشف جمال المغرب</h2>
+                        <p id="heroText">
+                                رحلات مميزة بين المدن التاريخية والصحراء والشواطئ.
+                        </p>
+                        <a class="button" href="#trips" id="exploreBtn">
+                                اكتشف الرحلات
+                        </a>
+                </section>
 
-            <!-- Card 3 -->
-            <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
-                <img src="https://images.unsplash.com/photo-1569154941061-e231b4725ef1?q=80&w=600" alt="فاس" class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2 text-emerald-700">فاس - العاصمة العلمية</h3>
-                    <p class="text-slate-600 text-sm mb-4">تضم جامع القرويين أقدم جامعة في العالم، وأقدم مدن العالم القديم المحفوظة حتى الآن.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+                <section id="trips">
+                        <h2 id="tripsTitle">وجهاتنا السياحية</h2>
 
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-white text-center py-8 border-t border-slate-800">
-        <p class="text-sm text-slate-400">جميع الحقوق محفوظة &copy; 2026 - موقع السياحة في المغرب</p>
-    </footer>
+                        <div class="cards">
+                                <article class="card">
+                                        <div class="emoji">🐪</div>
+                                        <h3 id="merzougaTitle">مرزوكة</h3>
+                                        <p id="merzougaText">اكتشف سحر الصحراء المغربية.</p>
+                                        <button type="button" class="bookBtn" data-trip="merzouga" id="merzougaBtn">
+                                                احجز رحلة
+                                        </button>
+                                </article>
+
+                                <article class="card">
+                                        <div class="emoji">🏛️</div>
+                                        <h3 id="marrakechTitle">مراكش</h3>
+                                        <p id="marrakechText">اكتشف الأسواق والتراث التاريخي.</p>
+                                        <button type="button" class="bookBtn" data-trip="marrakech" id="marrakechBtn">
+                                                احجز رحلة
+                                        </button>
+                                </article>
+
+                                <article class="card">
+                                        <div class="emoji">💙</div>
+                                        <h3 id="chefchaouenTitle">شفشاون</h3>
+                                        <p id="chefchaouenText">استمتع بالأزقة الزرقاء الجميلة.</p>
+                                        <button type="button" class="bookBtn" data-trip="chefchaouen"
+                                                id="chefchaouenBtn">
+                                                احجز رحلة
+                                        </button>
+                                </article>
+                        </div>
+                </section>
+
+                <section id="booking">
+                        <h2 id="formTitle">طلب حجز رحلة</h2>
+
+                        <form id="bookingForm">
+                                <label for="customer" id="nameLabel">الاسم الكامل</label>
+                                <input id="customer" name="customer" type="text" required maxlength="80">
+
+                                <label for="trip" id="tripLabel">الرحلة</label>
+                                <select id="trip" name="trip" required>
+                                        <option value="merzouga">مرزوكة</option>
+                                        <option value="marrakech">مراكش</option>
+                                        <option value="chefchaouen">شفشاون</option>
+                                </select>
+
+                                <label for="date" id="dateLabel">تاريخ الرحلة</label>
+                                <input id="date" name="date" type="date" required>
+
+                                <label for="people" id="peopleLabel">عدد المسافرين</label>
+                                <input id="people" name="people" type="number" min="1" max="50" value="1" required>
+
+                                <button type="submit" id="submitBtn">
+                                        إرسال طلب الحجز
+                                </button>
+                        </form>
+
+                        <p id="message" role="status"></p>
+                </section>
+        </main>
+
+        <footer>
+                <p id="footerText">Morocco Travel — اكتشف المغرب</p>
+        </footer>
 
 </body>
+
 </html>
