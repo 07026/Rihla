@@ -73,7 +73,7 @@ const translations = {
     invalidPhone: "يرجى إدخال رقم هاتف صحيح.",
     invalidDate: "يرجى اختيار تاريخ سفر مستقبلي.",
     termsRequired: "يجب الموافقة على الشروط قبل إتمام الحجز.",
-    success: (customer, trip, method, total) => `تم تأكيد حجز ${customer} بنجاح لرحلة ${trip} عبر ${method} بقيمة ${total} درهم. سيصلك تأكيد الحجز عبر البريد الإلكتروني خلال 24 ساعة.`,
+    success: (customer, trip, method, total) => `تم تأكيد حجز ${customer} بنجاح لرحلة ${trip} عبر ${method} بقيمة ${total} درهم. سيصلك تأكيد الحجز عبر البريد الإلكتروني في أقرب وقت.`,
   },
   fr: {
     languageBtn: "العربية",
@@ -133,7 +133,7 @@ const translations = {
     invalidPhone: "Veuillez saisir un numéro de téléphone valide.",
     invalidDate: "Veuillez sélectionner une date de voyage future.",
     termsRequired: "Vous devez accepter les conditions avant de confirmer la réservation.",
-    success: (customer, trip, method, total) => `La réservation de ${customer} a bien été confirmée pour ${trip} via ${method} pour un montant total de ${total} MAD. Vous recevrez une confirmation par e-mail sous 24 heures.`,
+    success: (customer, trip, method, total) => `La réservation de ${customer} a bien été confirmée pour ${trip} via ${method} pour un montant total de ${total} MAD. Vous recevrez une confirmation par e-mail dans les plus brefs délais.`,
   },
 };
 
@@ -184,7 +184,7 @@ function applyTranslations() {
     merzougaText: "merzougaText",
     marrakechTitle: "marrakechTitle",
     marrakechText: "marrakechText",
-    ChefchaouenTitle: "chefchaouenTitle",
+    chefchaouenTitle: "chefchaouenTitle",
     chefchaouenText: "chefchaouenText",
     merzougaBtn: "merzougaBtn",
     marrakechBtn: "marrakechBtn",
@@ -236,7 +236,7 @@ function applyTranslations() {
   });
 
   document.documentElement.lang = language;
-  document.documentElement.dir = "rtl";
+  document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
 
   updateSummary();
 }
