@@ -1,0 +1,13 @@
+{
+  "name": "rihla-paypal-checkout",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static Rihla site with Vercel serverless PayPal checkout",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "devDependencies": {
+    "vercel": "^39.1.2"
+  }
+}
