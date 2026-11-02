@@ -1,91 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Morocco Travel | اكتشف المغرب</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
+    <meta name="theme-color" content="#f8f7f2" />
+    <meta name="description" content="اكتشف أجمل وجهات المغرب واحجز رحلتك بسهولة وأمان عبر PayPal." />
+    <title>رِحلة — اكتشف المغرب على مهل</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Readex+Pro:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <header class="topbar">
-      <div class="logo">🇲🇦 Morocco Travel</div>
-      <button id="languageBtn" class="lang-btn" type="button">Français</button>
-    </header>
-
-    <nav class="nav" aria-label="Navigation principale">
-      <a href="#home" id="homeLink">الرئيسية</a>
-      <a href="#trips" id="tripsLink">الرحلات</a>
-      <a href="#booking" id="bookingLink">الحجز</a>
-    </nav>
-
-    <main>
-      <section class="hero" id="home">
-        <div class="hero-copy">
-          <p class="eyebrow" id="eyebrow">من أجمل الوجهات في شمال إفريقيا</p>
-          <h1 id="heroTitle">اكتشف جمال المغرب</h1>
-          <p id="heroText">رحلات مميزة بين المدن التاريخية، الصحراء الذهبية والشواطئ الخضراء.</p>
-          <div class="hero-actions">
-            <a class="primary-btn" href="#trips" id="exploreBtn">اكتشف الرحلات</a>
-            <a class="secondary-btn" href="#booking" id="planBtn">خطط رحلتك</a>
-          </div>
-          <div class="stats" aria-label="إحصاءات السفر">
-            <div><strong>12K+</strong><span id="statTravelers">مسافر سنوياً</span></div>
-            <div><strong>28</strong><span id="statCities">مدينة</span></div>
-            <div><strong>4.9</strong><span id="statRating">تقييم المسافرين</span></div>
-          </div>
-        </div>
-        <div class="hero-visual" aria-label="مشهد المغرب">
-          <div class="photo-card card-main"><span>🌄</span><h3 id="visualTitle">الريف والجبال</h3></div>
-          <div class="photo-card card-small"><span>🏙️</span><h3 id="visualCity">مراكش</h3></div>
-        </div>
-      </section>
-
-      <section class="destinations" id="trips">
-        <div class="section-heading"><p class="eyebrow" id="tripsIntro">وجهاتنا السياحية</p><h2 id="tripsTitle">اكتشف مغربك المثالي</h2></div>
-        <div class="cards">
-          <article class="card"><div class="emoji">🐪</div><h3 id="merzougaTitle">مرزوكة</h3><p id="merzougaText">اكتشف سحر الصحراء المغربية في أجواء هادئة ومميزة.</p><button type="button" class="bookBtn" data-trip="merzouga" id="merzougaBtn">احجز رحلة</button></article>
-          <article class="card"><div class="emoji">🏛️</div><h3 id="marrakechTitle">مراكش</h3><p id="marrakechText">استمتع بالأسواق التقليدية والمعالم التاريخية والحدائق.</p><button type="button" class="bookBtn" data-trip="marrakech" id="marrakechBtn">احجز رحلة</button></article>
-          <article class="card"><div class="emoji">💙</div><h3 id="chefchaouenTitle">شفشاون</h3><p id="chefchaouenText">اكتشف الأزقة الزرقاء والمناظر الطبيعية الخلابة.</p><button type="button" class="bookBtn" data-trip="chefchaouen" id="chefchaouenBtn">احجز رحلة</button></article>
-        </div>
-      </section>
-
-      <section class="features" aria-label="مزايا السفر">
-        <div class="feature-item"><div class="feature-icon">🧭</div><h3 id="featureExploreTitle">رحلات مخصصة</h3><p id="featureExploreText">نصمم لك برنامجاً يتناسب مع ذوقك وميزانيتك.</p></div>
-        <div class="feature-item"><div class="feature-icon">🏨</div><h3 id="featureStayTitle">إقامات فاخرة</h3><p id="featureStayText">منزل أنيق، فندق فاخر، أو منتجع شاطئي حسب رغبتك.</p></div>
-        <div class="feature-item"><div class="feature-icon">🚐</div><h3 id="featureGuideTitle">مرشدون محليون</h3><p id="featureGuideText">خبراء محليون يرافقونك في كل خطوة من رحلتك.</p></div>
-      </section>
-
-      <section class="booking" id="booking">
-        <div class="booking-copy">
-          <p class="eyebrow" id="bookingIntro">حجز سريع</p><h2 id="bookingTitle">احجز رحلتك إلى المغرب</h2>
-          <p id="bookingText">اختر الوجهة المناسبة لك وسنقوم بالتأكيد في أقل من 24 ساعة.</p>
-          <div class="secure-box"><span>🔒</span><div><strong id="secureHead">دفع آمن عبر PayPal</strong><p id="secureText">تتم معالجة الدفع عبر PayPal؛ لا يستقبل هذا الموقع بيانات البطاقة.</p></div></div>
-        </div>
-        <div class="booking-panel">
-          <h2 id="formTitle">طلب حجز رحلة</h2>
-          <form id="bookingForm">
-            <label for="customer" id="nameLabel">الاسم الكامل</label><input id="customer" name="customer" type="text" required maxlength="80" autocomplete="name" placeholder="مثال: سارة محمد" />
-            <label for="email" id="emailLabel">البريد الإلكتروني</label><input id="email" name="email" type="email" required maxlength="120" autocomplete="email" placeholder="name@example.com" />
-            <label for="phone" id="phoneLabel">رقم الهاتف</label><input id="phone" name="phone" type="tel" required maxlength="20" autocomplete="tel" placeholder="+212 6 00 00 00 00" />
-            <label for="trip" id="tripLabel">الرحلة</label>
-            <select id="trip" name="trip" required><option value="merzouga">مرزوكة</option><option value="marrakech">مراكش</option><option value="chefchaouen">شفشاون</option></select>
-            <label for="date" id="dateLabel">تاريخ الرحلة</label><input id="date" name="date" type="date" required />
-            <label for="people" id="peopleLabel">عدد المسافرين</label><input id="people" name="people" type="number" min="1" max="50" value="1" required />
-            <input id="paymentMethod" name="paymentMethod" type="hidden" value="paypal" />
-            <div class="summary-box" aria-live="polite">
-              <div class="summary-row"><span id="summaryTripLabel">الرحلة:</span><strong id="summaryTrip">مرزوكة</strong></div>
-              <div class="summary-row"><span id="summaryPeopleLabel">المسافرون:</span><strong id="summaryPeople">1</strong></div>
-              <div class="summary-row total-row"><span id="summaryTotalLabel">الإجمالي (EUR):</span><strong id="summaryTotal">€150.00</strong></div>
-            </div>
-            <div id="paypalCheckoutWrap" class="paypal-checkout hidden" aria-live="polite"><p class="paypal-label">الدفع الآمن عبر PayPal</p><div id="paypal-button-container"></div></div>
-            <label class="checkbox-row"><input type="checkbox" id="terms" required /><span id="termsText">أوافق على الشروط وسياسة الخصوصية.</span></label>
-            <button type="submit" id="submitBtn">متابعة إلى الدفع الآمن عبر PayPal</button>
-          </form>
-          <p id="message" role="status" aria-live="polite"></p>
-        </div>
-      </section>
-    </main>
-    <footer><p id="footerText">Morocco Travel — اكتشف المغرب</p></footer>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
