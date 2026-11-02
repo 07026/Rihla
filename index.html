@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Morocco Travel | اكتشف المغرب</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=EUR&locale=fr_FR" defer></script>
     <script src="script.js" defer></script>
   </head>
   <body>
@@ -181,6 +182,11 @@
                 <span id="summaryTotalLabel">إجمالي المبلغ:</span>
                 <strong id="summaryTotal">1800 درهم</strong>
               </div>
+            </div>
+
+            <div id="paypalCheckoutWrap" class="paypal-checkout hidden" aria-live="polite">
+              <p class="paypal-label">الدفع عبر PayPal</p>
+              <div id="paypal-button-container"></div>
             </div>
 
             <label class="checkbox-row">
