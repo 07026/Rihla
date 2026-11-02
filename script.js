@@ -5,13 +5,17 @@ const dateInput = document.getElementById("date");
 const peopleInput = document.getElementById("people");
 const paymentMethod = document.getElementById("paymentMethod");
 const message = document.getElementById("message");
+const paypalCheckoutWrap = document.getElementById("paypalCheckoutWrap");
+const paypalContainer = document.getElementById("paypal-button-container");
 
 let language = "ar";
+const PAYPAL_CLIENT_ID = "YOUR_PAYPAL_CLIENT_ID";
+const CURRENCY = "EUR";
 
 const tripPrices = {
-  merzouga: 1800,
-  marrakech: 1200,
-  chefchaouen: 900,
+  merzouga: 150,
+  marrakech: 100,
+  chefchaouen: 75,
 };
 
 const translations = {
@@ -73,7 +77,9 @@ const translations = {
     invalidPhone: "يرجى إدخال رقم هاتف صحيح.",
     invalidDate: "يرجى اختيار تاريخ سفر مستقبلي.",
     termsRequired: "يجب الموافقة على الشروط قبل إتمام الحجز.",
-    success: (customer, trip, method, total) => `تم تأكيد حجز ${customer} بنجاح لرحلة ${trip} عبر ${method} بقيمة ${total} درهم. سيصلك تأكيد الحجز عبر البريد الإلكتروني في أقرب وقت.`,
+    paypalRequired: "يرجى استخدام زر PayPal أدناه لإتمام الدفع بشكل آمن.",
+    paypalSuccess: "تم الدفع بنجاح عبر PayPal. تم تأكيد حجزك.",
+    success: (customer, trip, method, total) => `تم تأكيد حجز ${customer} بنجاح لرحلة ${trip} عبر ${method} بقيمة ${total}. سيصلك تأكيد الحجز عبر البريد الإلكتروني.`,
   },
   fr: {
     languageBtn: "العربية",
@@ -133,7 +139,9 @@ const translations = {
     invalidPhone: "Veuillez saisir un numéro de téléphone valide.",
     invalidDate: "Veuillez sélectionner une date de voyage future.",
     termsRequired: "Vous devez accepter les conditions avant de confirmer la réservation.",
-    success: (customer, trip, method, total) => `La réservation de ${customer} a bien été confirmée pour ${trip} via ${method} pour un montant total de ${total} MAD. Vous recevrez une confirmation par e-mail dans les plus brefs délais.`,
+    paypalRequired: "Veuillez utiliser le bouton PayPal ci-dessous pour finaliser votre paiement en toute sécurité.",
+    paypalSuccess: "Paiement PayPal réussi. Votre réservation est confirmée.",
+    success: (customer, trip, method, total) => `La réservation de ${customer} a bien été confirmée pour ${trip} via ${method} pour un montant total de ${total}. Vous recevrez une confirmation par e-mail.`,
   },
 };
 
@@ -146,14 +154,19 @@ function getPriceForTrip(trip) {
 }
 
 function formatPrice(value) {
-  return `${value.toLocaleString("fr-FR")} درهم`;
+  return `€${value.toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
+function getCurrentTotal() {
+  const trip = getSelectedTrip();
+  const people = Number(peopleInput.value) || 1;
+  return getPriceForTrip(trip) * people;
 }
 
 function updateSummary() {
   const trip = getSelectedTrip();
   const people = Number(peopleInput.value) || 1;
-  const price = getPriceForTrip(trip);
-  const total = price * people;
+  const total = getCurrentTotal();
 
   const tripName = translations[language].options[tripSelect.selectedIndex] || trip;
   document.getElementById("summaryTrip").textContent = tripName;
@@ -241,13 +254,140 @@ function applyTranslations() {
   updateSummary();
 }
 
+function saveReservation(reservation) {
+  const saved = JSON.parse(localStorage.getItem("moroccoTravelBookings") || "[]");
+  saved.push(reservation);
+  localStorage.setItem("moroccoTravelBookings", JSON.stringify(saved));
+}
+
+function showMessage(text, isError = false) {
+  message.textContent = text;
+  message.style.color = isError ? "var(--danger)" : "var(--success)";
+}
+
+function togglePaypalUI() {
+  const isPaypal = paymentMethod.value === "paypal";
+  paypalCheckoutWrap.classList.toggle("hidden", !isPaypal);
+
+  if (!isPaypal) {
+    if (paypalContainer) {
+      paypalContainer.innerHTML = "";
+    }
+    return;
+  }
+
+  renderPaypalButtons();
+}
+
+function renderPaypalButtons() {
+  if (!window.paypal || paymentMethod.value !== "paypal") {
+    return;
+  }
+
+  if (!paypalContainer || !PAYPAL_CLIENT_ID || PAYPAL_CLIENT_ID === "YOUR_PAYPAL_CLIENT_ID") {
+    if (paypalContainer) {
+      paypalContainer.innerHTML = "<p class=\"paypal-placeholder\">أدخل Client ID الحقيقي من PayPal في ملف JavaScript لتفعيل الدفع.</p>";
+    }
+    return;
+  }
+
+  paypalContainer.innerHTML = "";
+
+  window.paypal
+    .Buttons({
+      createOrder: () => {
+        const total = getCurrentTotal();
+        return fetch("/api/paypal/create-order", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            amount: total.toFixed(2),
+            currency: CURRENCY,
+            description: "Morocco Travel booking",
+          }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Unable to create PayPal order");
+            }
+            return response.json();
+          })
+          .then((data) => data.orderId || data.id);
+      },
+      onApprove: (data) => {
+        return fetch("/api/paypal/capture-order", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ orderId: data.orderID }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Unable to capture PayPal payment");
+            }
+            return response.json();
+          })
+          .then((details) => {
+            const customer = document.getElementById("customer").value.trim();
+            const selectedTrip = tripSelect.value;
+            const tripName = translations[language].options[tripSelect.selectedIndex];
+            const total = getCurrentTotal();
+
+            const reservation = {
+              customer,
+              email: document.getElementById("email").value.trim(),
+              phone: document.getElementById("phone").value.trim(),
+              trip: tripName,
+              date: dateInput.value,
+              travelers: Number(peopleInput.value || 1),
+              payment: "PayPal",
+              total,
+              currency: CURRENCY,
+              paypalOrderId: data.orderID,
+              captured: true,
+              createdAt: new Date().toISOString(),
+              status: "paid",
+            };
+
+            saveReservation(reservation);
+            showMessage(`تم الدفع بنجاح عبر PayPal. معرّف الطلب: ${data.orderID}`);
+            form.reset();
+            updateSummary();
+            setTimeout(() => {
+              window.location.href = "#booking";
+            }, 300);
+            return details;
+          });
+      },
+      onCancel: () => {
+        showMessage("تم إلغاء الدفع عبر PayPal.", true);
+      },
+      onError: () => {
+        showMessage("حدث خطأ أثناء الدفع عبر PayPal. حاول مرة أخرى.", true);
+      },
+    })
+    .render("#paypal-button-container");
+}
+
 languageBtn.addEventListener("click", () => {
   language = language === "ar" ? "fr" : "ar";
   applyTranslations();
 });
 
-tripSelect.addEventListener("change", updateSummary);
-peopleInput.addEventListener("input", updateSummary);
+tripSelect.addEventListener("change", () => {
+  updateSummary();
+  if (paymentMethod.value === "paypal") {
+    renderPaypalButtons();
+  }
+});
+
+peopleInput.addEventListener("input", () => {
+  updateSummary();
+  if (paymentMethod.value === "paypal") {
+    renderPaypalButtons();
+  }
+});
+
+paymentMethod.addEventListener("change", togglePaypalUI);
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -260,46 +400,46 @@ form.addEventListener("submit", (event) => {
   const agreed = document.getElementById("terms").checked;
 
   if (!customer) {
-    message.textContent = translations[language].emptyName;
-    message.style.color = "var(--danger)";
+    showMessage(translations[language].emptyName, true);
     return;
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-    message.textContent = translations[language].invalidEmail;
-    message.style.color = "var(--danger)";
+    showMessage(translations[language].invalidEmail, true);
     return;
   }
 
   const phoneRegex = /^\+?[0-9\s-]{8,20}$/;
   if (!phoneRegex.test(phone)) {
-    message.textContent = translations[language].invalidPhone;
-    message.style.color = "var(--danger)";
+    showMessage(translations[language].invalidPhone, true);
     return;
   }
 
   if (!selectedDate) {
-    message.textContent = translations[language].invalidDate;
-    message.style.color = "var(--danger)";
+    showMessage(translations[language].invalidDate, true);
     return;
   }
 
   const today = new Date();
   const chosenDate = new Date(selectedDate + "T00:00:00");
   if (chosenDate <= today) {
-    message.textContent = translations[language].invalidDate;
-    message.style.color = "var(--danger)";
+    showMessage(translations[language].invalidDate, true);
     return;
   }
 
   if (!agreed) {
-    message.textContent = translations[language].termsRequired;
-    message.style.color = "var(--danger)";
+    showMessage(translations[language].termsRequired, true);
     return;
   }
 
-  const total = getPriceForTrip(selectedTrip) * Number(peopleInput.value || 1);
+  if (paymentMethod.value === "paypal") {
+    showMessage(translations[language].paypalRequired);
+    renderPaypalButtons();
+    return;
+  }
+
+  const total = getCurrentTotal();
   const tripName = translations[language].options[tripSelect.selectedIndex];
   const paymentName = translations[language].paymentOptions[paymentMethod.selectedIndex];
 
@@ -312,16 +452,16 @@ form.addEventListener("submit", (event) => {
     travelers: Number(peopleInput.value || 1),
     payment: paymentName,
     total,
+    currency: CURRENCY,
     createdAt: new Date().toISOString(),
+    status: "pending",
   };
 
-  const saved = JSON.parse(localStorage.getItem("moroccoTravelBookings") || "[]");
-  saved.push(reservation);
-  localStorage.setItem("moroccoTravelBookings", JSON.stringify(saved));
+  saveReservation(reservation);
 
-  message.textContent = translations[language].success(customer, tripName, paymentName, total.toLocaleString("fr-FR"));
-  message.style.color = "var(--success)";
+  showMessage(translations[language].success(customer, tripName, paymentName, formatPrice(total)));
   form.reset();
+  paymentMethod.value = "visa";
   tripSelect.value = selectedTrip;
   peopleInput.value = "1";
   dateInput.value = "";
@@ -333,8 +473,15 @@ form.addEventListener("submit", (event) => {
     const trip = button.dataset.trip;
     tripSelect.value = trip;
     updateSummary();
+    if (paymentMethod.value === "paypal") {
+      renderPaypalButtons();
+    }
     document.getElementById("booking").scrollIntoView({ behavior: "smooth", block: "start" });
   });
 });
+
+if (window.paypal) {
+  togglePaypalUI();
+}
 
 applyTranslations();
