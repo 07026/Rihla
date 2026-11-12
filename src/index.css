@@ -8,6 +8,14 @@
   background: #f8f7f2;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+  --forest: #245c4b;
+  --forest-deep: #163c35;
+  --ink: #23332d;
+  --muted: #788078;
+  --terracotta: #b76d54;
+  --sand-50: #fbfaf6;
+  --sand-100: #f4f1e9;
+  --sand-200: #e8e4da;
 }
 
 html {
@@ -18,7 +26,8 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background: #f8f7f2;
+  background: linear-gradient(180deg, #f7f4ee 0%, #f9f7f3 100%);
+  color: var(--ink);
 }
 
 button, input, select {
@@ -66,12 +75,12 @@ img {
   width: 100%;
   min-height: 3.1rem;
   border: 1px solid #e8e4da;
-  border-radius: 0.85rem;
+  border-radius: 0.9rem;
   background: #fff;
   padding: 0.7rem 0.9rem;
   color: #23332d;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
 }
 
 .form-input::placeholder {
@@ -81,6 +90,7 @@ img {
 .form-input:focus {
   border-color: #427964;
   box-shadow: 0 0 0 3px rgb(66 121 100 / 12%);
+  transform: translateY(-1px);
 }
 
 .checkbox-row {
@@ -95,4 +105,10 @@ img {
 .checkbox-row input {
   margin-top: 0.25rem;
   accent-color: #245c4b;
+}
+
+@media (max-width: 640px) {
+  .form-input {
+    min-height: 2.9rem;
+  }
 }

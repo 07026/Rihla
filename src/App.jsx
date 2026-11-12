@@ -1,14 +1,62 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { ArrowDown, ArrowLeft, ArrowUpLeft, CalendarDays, Check, ChevronLeft, Compass, MapPin, Menu, MessageSquareQuote, ShieldCheck, Sparkles, Star, Users, X } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowLeft,
+  ArrowUpLeft,
+  CalendarDays,
+  Check,
+  ChevronLeft,
+  Compass,
+  MapPin,
+  Menu,
+  ShieldCheck,
+  Sparkles,
+  Star,
+  Users,
+  X,
+} from "lucide-react";
 
 const trips = [
-  { id: "chefchaouen", name: "شفشاون", region: "جبال الريف", price: 75, days: "يومان", image: "https://images.unsplash.com/photo-1565689478170-6624de9575e0?auto=format&fit=crop&w=1100&q=85", alt: "الأزقة الزرقاء في شفشاون بين جبال الريف", tag: "الأكثر حباً", emoji: "💙" },
-  { id: "marrakech", name: "مراكش", region: "قلب المدينة الحمراء", price: 100, days: "3 أيام", image: "https://images.unsplash.com/photo-1597212618440-806262de4f6b?auto=format&fit=crop&w=1100&q=85", alt: "مباني مراكش المغربية", tag: "ثقافة وحياة", emoji: "🧡" },
-  { id: "merzouga", name: "مرزوكة", region: "صحراء المغرب", price: 150, days: "ليلتان", image: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=1100&q=85", alt: "الكثبان الذهبية في الصحراء المغربية", tag: "تحت النجوم", emoji: "✨" },
+  {
+    id: "chefchaouen",
+    name: "شفشاون",
+    region: "جبال الريف",
+    price: 75,
+    days: "يومان",
+    tag: "أكثر طلباً",
+    emoji: "🏞️",
+    alt: "مدينة شفشاون الزرقاء في المغرب",
+    image:
+      "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=1200&q=80",
+  },
+  {
+    id: "marrakech",
+    name: "مراكش",
+    region: "قلب المدينة الحمراء",
+    price: 100,
+    days: "3 أيام",
+    tag: "عاصمة الثقافة",
+    emoji: "🌆",
+    alt: "أسواق مراكش وأزقته الشعبية",
+    image:
+      "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=1200&q=80",
+  },
+  {
+    id: "merzouga",
+    name: "مرزوكة",
+    region: "صحراء المغرب",
+    price: 150,
+    days: "ليلتان",
+    tag: "رحلة الصحراء",
+    emoji: "🏜️",
+    alt: "خيمة صحراوية في مرزوكة المغرب",
+    image:
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+  },
 ];
 
 const experiences = [
-  { title: "رحلات مخصصة", text: "خطة ذكية تناسب أهواءك وميزانيتك من اليوم الأول." },
+  { title: "رحلات مخصصة", text: "خطة ذكية تناسب أهواءك وميزانيتك منذ اليوم الأول." },
   { title: "إقامات فاخرة", text: "فنادق وبيوتات أنيقة توفر لك الراحة والدفء في كل مدينة." },
   { title: "مرشدون محليون", text: "خبرة محلية تغني رحلتك بملاحظات واهتمامات حقيقية." },
 ];
@@ -20,8 +68,8 @@ const testimonials = [
 ];
 
 const faqs = [
-  { q: "هل يمكن تعديل الحجز بعد التأكيد؟", a: "نعم، يمكن تعديل بعض التفاصيل في حالة توفر أماكن مناسبة، وسيتم التواصل مباشرة." },
-  { q: "هل تشمل الرحلة الإقامة؟", a: "تعتمد الخطة المختارة على الرحلة، ويمكن إضافة الإقامة مع باقات مخصصة." },
+  { q: "هل يمكن تعديل الحجز بعد التأكيد؟", a: "نعم، يمكن تعديل بعض التفاصيل في حالة توفر أماكن مناسبة، وسيتم التواصل معك بطريقة مرنة." },
+  { q: "هل تشمل الرحلة الإقامة؟", a: "تعتمد الخطة المختارة على الرحلة، ويمكن إضافة الإقامة مع باقات مخصصة حسب رغبتك." },
   { q: "هل الدفع آمن؟", a: "نعم، جميع الحجوزات تتم مع تأكيد الدفع عبر PayPal بشكل آمن ومؤمن." },
 ];
 
@@ -124,7 +172,7 @@ function PaypalCheckout({ booking, onSuccess, onError }) {
   };
 
   return (
-    <div className="mt-5 rounded-2xl border border-sand-200 bg-sand-50 p-4">
+    <div className="mt-5 rounded-[1.5rem] border border-sand-200 bg-sand-50 p-4 shadow-soft">
       <div className="mb-3 flex items-center justify-between gap-3">
         <div>
           <p className="font-bold text-ink">الدفع الآمن عبر PayPal</p>
@@ -190,7 +238,7 @@ export default function App() {
           <a href="#booking" className="hidden rounded-full bg-white px-5 py-2.5 text-sm font-bold text-forest transition hover:bg-sand-100 sm:inline-flex">
             خطط رحلتك <ArrowLeft className="mr-2 h-4 w-4" />
           </a>
-          <button className="rounded-xl bg-white/15 p-2 text-white md:hidden" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "إغلاق القائمة" : "فتح القائمة"} aria-expanded={menuOpen}>
+          <button className="rounded-xl bg-white/15 p-2 text-white md:hidden" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "إغلاق القائمة" : "فتح القائمة"}>
             {menuOpen ? <X /> : <Menu />}
           </button>
         </div>
@@ -206,15 +254,19 @@ export default function App() {
 
       <main>
         <section id="home" className="relative flex min-h-[720px] items-end overflow-hidden bg-[#1d302d] sm:min-h-[780px]">
-          <img className="absolute inset-0 h-full w-full object-cover object-center" src="https://images.unsplash.com/photo-1565689478170-6624de9575e0?auto=format&fit=crop&w=2400&q=90" alt="مشهد بانورامي للأزقة الزرقاء في شفشاون" fetchPriority="high" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#101d1a]/85 via-[#14221f]/35 to-black/20" />
+          <img
+            className="absolute inset-0 h-full w-full object-cover object-center"
+            src="https://images.unsplash.com/photo-1521292270410-a8c4d716d518?auto=format&fit=crop&w=1800&q=80"
+            alt="رحلة سياحية في المغرب"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0f1b1a]/90 via-[#172a25]/55 to-black/20" />
           <div className="absolute inset-0 bg-gradient-to-l from-[#101d1a]/35 to-transparent" />
           <div className="relative mx-auto w-full max-w-7xl px-5 pb-20 pt-40 sm:px-8 sm:pb-24 lg:px-12">
             <div className="max-w-3xl text-white">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm backdrop-blur-md">
                 <MapPin className="h-4 w-4 text-[#f3c68b]" /> شفشاون، المغرب <span className="mx-1 text-white/50">·</span> 35°10′ شمالاً
               </div>
-              <h1 className="font-display text-5xl font-semibold leading-[1.18] tracking-tight sm:text-6xl lg:text-8xl">
+              <h1 className="font-display text-5xl font-semibold leading-[1.12] tracking-tight sm:text-6xl lg:text-8xl">
                 هناك أماكن<br />تُشبه <span className="text-[#f3c68b]">الحلم.</span>
               </h1>
               <p className="mt-6 max-w-xl text-base leading-8 text-white/80 sm:text-lg">
@@ -247,7 +299,9 @@ export default function App() {
             </h2>
           </div>
           <div className="max-w-2xl lg:justify-self-end">
-            <p className="text-lg leading-9 text-muted">من أول رشفة شاي بالنعناع إلى آخر ضوء يغيب خلف الكثبان؛ نرتب لك تجارب صادقة، صغيرة التفاصيل، وكبيرة في أثرها.</p>
+            <p className="text-lg leading-9 text-muted">
+              من أول رشفة شاي بالنعناع إلى آخر ضوء يغيب خلف الكثبان، نرتب لك تجارب صادقة، مريحة، ومليئة بالمفاجآت المحلية.
+            </p>
             <div className="mt-7 flex flex-wrap gap-3 text-sm font-semibold">
               <span className="rounded-full bg-white px-4 py-2.5 shadow-soft">✦ مرشدون من أهل المكان</span>
               <span className="rounded-full bg-white px-4 py-2.5 shadow-soft">✦ مجموعات صغيرة</span>
@@ -270,10 +324,10 @@ export default function App() {
 
             <div className="grid gap-5 md:grid-cols-3">
               {trips.map((trip, index) => (
-                <article key={trip.id} className={`group overflow-hidden rounded-[1.75rem] bg-white shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-lift ${index === 1 ? "md:mt-8" : ""}`}>
+                <article key={trip.id} className={`group overflow-hidden rounded-[1.8rem] bg-white shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-lift ${index === 1 ? "md:-translate-y-3" : ""}`}>
                   <div className="relative h-72 overflow-hidden sm:h-80">
                     <img src={trip.image} alt={trip.alt} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                     <span className="absolute right-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-bold text-ink backdrop-blur">{trip.tag}</span>
                     <span className="absolute bottom-4 left-4 grid h-11 w-11 place-items-center rounded-full bg-white/90 text-xl">{trip.emoji}</span>
                   </div>
@@ -283,7 +337,7 @@ export default function App() {
                       <span className="mx-1">·</span>
                       <CalendarDays className="h-3.5 w-3.5" />{trip.days}
                     </div>
-                    <div className="mt-3 flex items-end justify-between">
+                    <div className="mt-3 flex items-end justify-between gap-4">
                       <div>
                         <h3 className="font-display text-2xl font-semibold">{trip.name}</h3>
                         <p className="mt-1 text-sm text-muted">مناظر، مذاقات ولقاءات محلية</p>
@@ -293,7 +347,7 @@ export default function App() {
                         <p className="font-bold text-forest">{money(trip.price)}<span className="text-xs font-normal text-muted"> / شخص</span></p>
                       </div>
                     </div>
-                    <button onClick={() => { setSelectedTrip(trip.id); document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" }); }} className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full border border-sand-200 py-3 text-sm font-bold text-forest transition hover:border-forest hover:bg-forest hover:text-white">
+                    <button onClick={() => { setSelectedTrip(trip.id); document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" }); }} className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-forest px-5 py-3 font-bold text-white transition hover:bg-[#1a4b3f]">
                       اختر هذه الرحلة <ArrowLeft className="h-4 w-4" />
                     </button>
                   </div>
@@ -330,10 +384,10 @@ export default function App() {
               <h2 className="mt-3 font-display text-3xl font-semibold leading-tight">المغرب، كما يعرفه أهله.</h2>
             </div>
             <div className="grid gap-7 sm:grid-cols-2 md:col-span-2">
-              <div className="flex gap-4"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-white/10"><Compass /></span><div><h3 className="font-bold">اختيارات محلية</h3><p className="mt-1 text-sm leading-6 text-white/65">أماكن يعرفها أهلها، لا خرائط السياح فقط.</p></div></div>
-              <div className="flex gap-4"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-white/10"><Users /></span><div><h3 className="font-bold">على مقاسك</h3><p className="mt-1 text-sm leading-6 text-white/65">رحلات مرنة ومجموعات صغيرة لتستمتع بكل لحظة.</p></div></div>
-              <div className="flex gap-4"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-white/10"><ShieldCheck /></span><div><h3 className="font-bold">حجز مطمئن</h3><p className="mt-1 text-sm leading-6 text-white/65">دفع PayPal آمن وتأكيد واضح لحجزك.</p></div></div>
-              <div className="flex gap-4"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-white/10"><Sparkles /></span><div><h3 className="font-bold">تفاصيل تصنع الفرق</h3><p className="mt-1 text-sm leading-6 text-white/65">نهتم بالتفاصيل الصغيرة لتبقى الرحلة في ذاكرتك.</p></div></div>
+              <div className="flex gap-4"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-white/10"><Compass /></span><div><h3 className="font-bold">اختيارات مُصمّمة</h3><p className="mt-2 text-sm text-white/75">نقترح لك الوجهات المثالية بحسب الميعاد، التفضيلات، والميزانية.</p></div></div>
+              <div className="flex gap-4"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-white/10"><Users /></span><div><h3 className="font-bold">على مقاسك</h3><p className="mt-2 text-sm text-white/75">فردي، مزدوج، أو عائلي — كل خطة تُعد لتناسب أسلوب سفرك.</p></div></div>
+              <div className="flex gap-4"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-white/10"><ShieldCheck /></span><div><h3 className="font-bold">حجز مطمئن</h3><p className="mt-2 text-sm text-white/75">مع خدمات موثوقة وتأكيدات واضحة في كل خطوة من الحجز.</p></div></div>
+              <div className="flex gap-4"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-white/10"><Sparkles /></span><div><h3 className="font-bold">تفاصيل موهوبة</h3><p className="mt-2 text-sm text-white/75">من الاستقبال إلى التنقل، كل جزء من الرحلة مُرتّب بعناية.</p></div></div>
             </div>
           </div>
         </section>
@@ -388,9 +442,9 @@ export default function App() {
             <h2 className="mt-5 font-display text-4xl font-semibold leading-tight sm:text-5xl">
               دعنا نخطط<br />لشيء <span className="text-terracotta">جميل.</span>
             </h2>
-            <p className="mt-5 max-w-md leading-8 text-muted">أخبرنا بما تحب، وسنجهز لك بداية رحلة تستحق الانتظار. الأسعار باليورو للشخص الواحد.</p>
-            <div className="mt-8 flex items-center gap-3 text-sm text-muted"><span className="grid h-10 w-10 place-items-center rounded-full bg-white text-forest shadow-soft"><ShieldCheck className="h-5 w-5" /></span> الدفع لا يتم إلا عبر PayPal الآمن</div>
-            <div className="mt-3 flex items-center gap-3 text-sm text-muted"><span className="grid h-10 w-10 place-items-center rounded-full bg-white text-forest shadow-soft"><Check className="h-5 w-5" /></span> تأكيد الحجز بعد التحقق من الدفع</div>
+            <p className="mt-5 max-w-md leading-8 text-muted">أخبرنا بما تحب، وسنجهز لك بداية رحلة تستحق الانتظار. الأسعار باليورو للشخص في كل باقة، مع خيارات مرنة ومريحة.</p>
+            <div className="mt-8 flex items-center gap-3 text-sm text-muted"><span className="grid h-10 w-10 place-items-center rounded-full bg-white text-forest shadow-soft"><ShieldCheck className="h-4 w-4" /></span>تأكيد الحجز بشكل آمن ومباشر</div>
+            <div className="mt-3 flex items-center gap-3 text-sm text-muted"><span className="grid h-10 w-10 place-items-center rounded-full bg-white text-forest shadow-soft"><Check className="h-4 w-4" /></span>دعم مرن قبل وأثناء الرحلة</div>
           </div>
 
           <div className="rounded-[1.75rem] border border-sand-200 bg-white p-5 shadow-soft sm:p-8">
@@ -403,10 +457,10 @@ export default function App() {
             </div>
 
             <form id="booking-form" onSubmit={submitBooking} className="grid gap-4 sm:grid-cols-2">
-              <div className="sm:col-span-2"><label htmlFor="customer" className="form-label">الاسم الكامل</label><input id="customer" name="customer" className="form-input" required maxLength="80" autoComplete="name" placeholder="مثال: سلمى العلوي" /></div>
-              <div><label htmlFor="email" className="form-label">البريد الإلكتروني</label><input id="email" name="email" type="email" className="form-input" required maxLength="120" autoComplete="email" placeholder="name@example.com" /></div>
-              <div><label htmlFor="phone" className="form-label">رقم الهاتف</label><input id="phone" name="phone" type="tel" className="form-input" required maxLength="20" autoComplete="tel" placeholder="+212 6 00 00 00 00" /></div>
-              <div><label htmlFor="trip" className="form-label">الوجهة</label><select id="trip" name="trip" className="form-input" value={selectedTrip} onChange={(event) => setSelectedTrip(event.target.value)}>{trips.map((trip) => <option value={trip.id} key={trip.id}>{trip.name} — {money(trip.price)}</option>)}</select></div>
+              <div className="sm:col-span-2"><label htmlFor="customer" className="form-label">الاسم الكامل</label><input id="customer" name="customer" className="form-input" required maxLength="80" placeholder="مثال: أمل السالم" /></div>
+              <div><label htmlFor="email" className="form-label">البريد الإلكتروني</label><input id="email" name="email" type="email" className="form-input" required maxLength="120" placeholder="name@example.com" /></div>
+              <div><label htmlFor="phone" className="form-label">رقم الهاتف</label><input id="phone" name="phone" type="tel" className="form-input" required maxLength="20" autoComplete="tel" placeholder="+212 6 12 34 56 78" /></div>
+              <div><label htmlFor="trip" className="form-label">الوجهة</label><select id="trip" name="trip" className="form-input" value={selectedTrip} onChange={(event) => setSelectedTrip(event.target.value)}><option value="chefchaouen">شفشاون</option><option value="marrakech">مراكش</option><option value="merzouga">مرزوكة</option></select></div>
               <div><label htmlFor="travel-date" className="form-label">تاريخ الرحلة</label><input id="travel-date" name="date" type="date" min={today} className="form-input" required /></div>
               <div><label htmlFor="travelers" className="form-label">عدد المسافرين</label><input id="travelers" name="travelers" type="number" min="1" max="50" value={travelers} onChange={(event) => setTravelers(Number(event.target.value) || 1)} className="form-input" required /></div>
               <div className="flex items-end">
@@ -416,12 +470,12 @@ export default function App() {
                 </div>
               </div>
               <label className="checkbox-row sm:col-span-2"><input type="checkbox" required /><span>أوافق على شروط الحجز وسياسة الخصوصية.</span></label>
-              <div className="sm:col-span-2"><button className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-forest px-6 py-4 font-bold text-white transition hover:bg-[#173d34]" type="submit">متابعة إلى الدفع الآمن <ArrowLeft className="h-4 w-4" /></button></div>
+              <div className="sm:col-span-2"><button className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-forest px-6 py-4 font-bold text-white transition hover:bg-[#183b34]" type="submit">تأكيد الحجز</button></div>
             </form>
 
             {booking && <PaypalCheckout key={`${booking.trip}-${booking.travelers}-${booking.date}`} booking={booking} onSuccess={onPaymentSuccess} onError={onPaymentError} />}
             {notice && <p className="mt-4 rounded-xl bg-sand-50 px-4 py-3 text-sm font-medium text-forest" role="status" aria-live="polite">{notice}</p>}
-            <p className="mt-4 text-center text-xs leading-6 text-muted"><ShieldCheck className="ml-1 inline h-3.5 w-3.5" /> لن يتم تأكيد الحجز إلا بعد التحقق من PayPal على الخادم.</p>
+            <p className="mt-4 text-center text-xs leading-6 text-muted"><ShieldCheck className="ml-1 inline h-3.5 w-3.5" /> لن يتم تأكيد الحجز إلا بعد التحقق من PayPal بشكل آمن.</p>
           </div>
         </section>
       </main>
